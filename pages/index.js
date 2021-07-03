@@ -1,9 +1,9 @@
 import Head from "next/head";
 import Navbar from "../components/navbar";
+import Book from "../components/book";
 import { table, minifyRecords } from "./api/utils/airtable";
 
 export default function Home({ initialBooks }) {
-  console.log(initialBooks);
   return (
     <div>
       <Head>
@@ -13,7 +13,12 @@ export default function Home({ initialBooks }) {
       </Head>
       <Navbar />
       <main>
-        <h1>Reading Habit</h1>
+        <ul>
+          
+        </ul>
+        {initialBooks.map((book) => (
+          <Book key={book.id} book={book} />
+        ))}
       </main>
     </div>
   );
