@@ -1,9 +1,15 @@
+import { useEffect, useContext } from "react";
 import Head from "next/head";
 import Navbar from "../components/navbar";
 import Book from "../components/book";
+import { BooksContext } from "../contexts/BooksContext";
 import { table, minifyRecords } from "./api/utils/airtable";
 
 export default function Home({ initialBooks }) {
+  const { books, setBooks } = useContext(BooksContext);
+  useEffect(() => {
+    setBooks(initialBooks);
+  }, []);
   return (
     <div>
       <Head>
@@ -14,11 +20,8 @@ export default function Home({ initialBooks }) {
       <Navbar />
       <main>
         <ul>
-          
+          {books && books.map((book) => <Book key={book.id} book={book} />)}
         </ul>
-        {initialBooks.map((book) => (
-          <Book key={book.id} book={book} />
-        ))}
       </main>
     </div>
   );
