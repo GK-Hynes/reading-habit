@@ -4,8 +4,11 @@ import Navbar from "../components/navbar";
 import Book from "../components/book";
 import { BooksContext } from "../contexts/BooksContext";
 import { table, minifyRecords } from "./api/utils/airtable";
+import { useUser } from "@auth0/nextjs-auth0";
 
 export default function Home({ initialBooks }) {
+  const { user, error, isLoading } = useUser();
+
   const { books, setBooks } = useContext(BooksContext);
   useEffect(() => {
     setBooks(initialBooks);
@@ -17,7 +20,7 @@ export default function Home({ initialBooks }) {
         <meta name="description" content="Build a reading habit" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
+      <Navbar user={user} />
       <main>
         <ul>
           {books && books.map((book) => <Book key={book.id} book={book} />)}
