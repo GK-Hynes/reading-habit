@@ -5,11 +5,9 @@ import Book from "../components/book";
 import BookForm from "../components/bookForm";
 import { BooksContext } from "../contexts/BooksContext";
 import { table, minifyRecords } from "./api/utils/airtable";
-import { useUser } from "@auth0/nextjs-auth0";
+import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 
-export default function Home({ initialBooks }) {
-  const { user, error, isLoading } = useUser();
-
+export default function Home({ initialBooks, user }) {
   const { books, setBooks } = useContext(BooksContext);
   useEffect(() => {
     setBooks(initialBooks);
@@ -36,20 +34,32 @@ export default function Home({ initialBooks }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  try {
-    const books = await table.select({}).firstPage();
-    return {
-      props: {
-        initialBooks: minifyRecords(books)
+export const getServerSideProps = withPageAuthRequired({
+  async getServerSideProps(context) {
+    const { user } = getSession(context.req);
+
+    let books = [];
+
+    try {
+      if (user) {
+        books = await table
+          .select({
+            filterByFormula: `userId = '${user.sub}'`
+          })
+          .firstPage();
       }
-    };
-  } catch (err) {
-    console.error(err);
-    return {
-      props: {
-        err: "Something went wrong"
-      }
-    };
+      return {
+        props: {
+          initialBooks: minifyRecords(books)
+        }
+      };
+    } catch (err) {
+      console.error(err);
+      return {
+        props: {
+          err: "Something went wrong"
+        }
+      };
+    }
   }
-}
+});
