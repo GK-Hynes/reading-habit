@@ -19,7 +19,7 @@ export default function Book({ book }) {
         name="completed"
         id="completed"
         checked={book.fields.completed}
-        className="mr-4 form-checkbox h-5 w-5"
+        className="mr-4 h-4 w-4 rounded border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-black"
         onChange={handleToggleCompleted}
       />
       <div className="flex-1">
@@ -40,7 +40,7 @@ export default function Book({ book }) {
       </div>
       <button
         type="button"
-        className="text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded"
+        className="text-sm font-semibold bg-red-100 text-red-500 hover:bg-red-600 hover:text-white py-1 px-2 ml-2 rounded transition duration-300 ease-in-out"
         onClick={() => deleteBook(book.id)}
       >
         Delete

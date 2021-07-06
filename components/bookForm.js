@@ -12,10 +12,16 @@ export default function BookForm() {
     setTitle("");
   };
   return (
-    <form className="form my-6" onSubmit={handleSubmit}>
-      <h3 className="text-xl font-bold mb-2">Add a Book</h3>
+    <form
+      className="form my-4 border border-gray-200 rounded-lg px-4 py-4"
+      onSubmit={handleSubmit}
+    >
+      <h3 className="text-2xl font-semibold mb-2">Add a Book</h3>
       <div className="flex flex-col text-sm mb-2">
-        <label className="font-bold mb-2 text-gray-800" htmlFor="author">
+        <label
+          className="text-lg font-semibold mb-2 text-gray-800"
+          htmlFor="author"
+        >
           Author
         </label>
         <input
@@ -27,7 +33,10 @@ export default function BookForm() {
           placeholder="Author"
           className="border border-gray-200 p-2 mb-2 rounded-lg appearance-none focus:outline-none focus:border-gray-500"
         />
-        <label className="font-bold mb-2 text-gray-800" htmlFor="title">
+        <label
+          className="text-lg font-semibold mb-2 text-gray-800"
+          htmlFor="title"
+        >
           Title
         </label>
         <input
@@ -41,7 +50,7 @@ export default function BookForm() {
         />
       </div>
       <button
-        className="w-full rounded bg-blue-500 hover:bg-blue-600 text-white py-2"
+        className="w-full rounded font-semibold bg-black text-white hover:bg-white hover:text-black border hover:border-black py-2 transition duration-300 ease-in-out"
         type="submit"
       >
         Submit
