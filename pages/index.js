@@ -1,11 +1,11 @@
 import { useEffect, useContext } from "react";
 import Head from "next/head";
+import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import Navbar from "../components/navbar";
 import Book from "../components/book";
 import BookForm from "../components/bookForm";
 import { BooksContext } from "../contexts/BooksContext";
 import { table, minifyRecords } from "./api/utils/airtable";
-import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 
 export default function Home({ initialBooks, user }) {
   const { books, setBooks } = useContext(BooksContext);
@@ -29,6 +29,7 @@ export default function Home({ initialBooks, user }) {
             </ul>
           </>
         )}
+        {!user && <p>Log in to save your reading list</p>}
       </main>
     </div>
   );
