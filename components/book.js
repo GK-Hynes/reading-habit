@@ -19,16 +19,25 @@ export default function Book({ book }) {
         name="completed"
         id="completed"
         checked={book.fields.completed}
-        className="mr-2 form-checkbox h-5 w-5"
+        className="mr-4 form-checkbox h-5 w-5"
         onChange={handleToggleCompleted}
       />
-      <p
-        className={`flex-1 text-gray-800 ${
-          book.fields.completed ? "line-through" : ""
-        }`}
-      >
-        {book.fields.author} - {book.fields.title}
-      </p>
+      <div className="flex-1">
+        <h3
+          className={`text-lg font-semibold ${
+            book.fields.completed ? "line-through" : ""
+          }`}
+        >
+          {book.fields.title}
+        </h3>
+        <p
+          className={`text-gray-800 ${
+            book.fields.completed ? "line-through" : ""
+          }`}
+        >
+          {book.fields.author}
+        </p>
+      </div>
       <button
         type="button"
         className="text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded"
