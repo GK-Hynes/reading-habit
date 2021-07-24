@@ -1,18 +1,27 @@
-import { getSession } from "@auth0/nextjs-auth0";
-import { table, getMinifiedRecord } from "./utils/airtable";
-import ownsRecord from "./middleware/ownsRecord";
+import { withApiAuthRequired, getSession } from "@auth0/nextjs-auth0";
+import { deleteBook, getBookById } from "../../utils/Fauna";
 
-export default ownsRecord(async (req, res) => {
+export default withApiAuthRequired(async function handler(req, res) {
   const { id } = req.body;
-  const { user } = getSession(req, res);
+  const session = getSession(req, res);
+  const userId = session.user.sub;
+
+  if (req.method !== "DELETE") {
+    return res.status(405).json({ msg: "Method not allowed" });
+  }
+
+  const existingRecord = await getBookById(id);
+
+  if (!existingRecord || existingRecord.data.userId !== userId) {
+    res.statusCode = 404;
+    return res.json({ msg: "Record not found" });
+  }
 
   try {
-    const deletedRecords = await table.destroy([id]);
-    res.statusCode = 200;
-    res.json(getMinifiedRecord(deletedRecords[0]));
+    const deletedBook = await deleteBook(id);
+    return res.status(200).json(deletedBook);
   } catch (err) {
     console.error(err);
-    res.statusCode = 500;
-    res.json({ msg: "Something went wrong" });
+    return res.status(500).json({ msg: "Something went wrong" });
   }
 });
