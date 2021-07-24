@@ -5,7 +5,7 @@ import Navbar from "../components/navbar";
 import Book from "../components/book";
 import BookForm from "../components/bookForm";
 import { BooksContext } from "../contexts/BooksContext";
-import { table, minifyRecords } from "./api/utils/airtable";
+import { getBooks } from "../utils/Fauna";
 
 export default function Home({ initialBooks, user }) {
   const { books, setBooks } = useContext(BooksContext);
@@ -43,15 +43,11 @@ export const getServerSideProps = withPageAuthRequired({
 
     try {
       if (user) {
-        books = await table
-          .select({
-            filterByFormula: `userId = '${user.sub}'`
-          })
-          .firstPage();
+        books = await getBooks();
       }
       return {
         props: {
-          initialBooks: minifyRecords(books)
+          initialBooks: books
         }
       };
     } catch (err) {

@@ -5,11 +5,11 @@ export default function Book({ book }) {
   const { updateBook, deleteBook } = useContext(BooksContext);
 
   const handleToggleCompleted = () => {
-    const updatedFields = {
-      ...book.fields,
-      completed: !book.fields.completed
+    const updatedData = {
+      ...book.data,
+      completed: !book.data.completed
     };
-    const updatedBook = { id: book.id, fields: updatedFields };
+    const updatedBook = { id: book.id, data: updatedData };
     updateBook(updatedBook);
   };
   return (
@@ -18,24 +18,24 @@ export default function Book({ book }) {
         type="checkbox"
         name="completed"
         id="completed"
-        checked={book.fields.completed}
+        checked={book.data.completed}
         className="mr-4 h-4 w-4 rounded border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-black"
         onChange={handleToggleCompleted}
       />
       <div className="flex-1">
         <h3
           className={`text-lg font-semibold ${
-            book.fields.completed ? "line-through" : ""
+            book.data.completed ? "line-through" : ""
           }`}
         >
-          {book.fields.title}
+          {book.data.title}
         </h3>
         <p
           className={`text-gray-800 ${
-            book.fields.completed ? "line-through" : ""
+            book.data.completed ? "line-through" : ""
           }`}
         >
-          {book.fields.author}
+          {book.data.author}
         </p>
       </div>
       <button
