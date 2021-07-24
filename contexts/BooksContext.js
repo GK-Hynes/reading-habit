@@ -35,20 +35,19 @@ const BooksProvider = ({ children }) => {
 
   const updateBook = async (updatedBook) => {
     try {
-      const res = await fetch("/api/updateBook", {
+      await fetch("/api/updateBook", {
         method: "PUT",
         body: JSON.stringify(updatedBook),
         headers: {
           "Content-Type": "application/json"
         }
       });
-      await res.json();
       setBooks((prevBooks) => {
         const existingBooks = [...prevBooks];
         const existingBook = existingBooks.find(
           (book) => book.id === updatedBook.id
         );
-        existingBook.fields = updatedBook.fields;
+        existingBook.data = updatedBook.data;
         return existingBooks;
       });
     } catch (err) {
