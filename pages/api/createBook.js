@@ -1,20 +1,19 @@
 import { withApiAuthRequired, getSession } from "@auth0/nextjs-auth0";
-import { table } from "./utils/airtable";
+import { createBook } from "../../utils/Fauna";
 
-export default withApiAuthRequired(async (req, res) => {
+export default withApiAuthRequired(async function handler(req, res) {
+  const session = getSession(req, res);
+  const userId = session.user.sub;
   const { author, title } = req.body;
-  const { user } = getSession(req, res);
+  const completed = false;
+
+  if (req.method !== "POST") {
+    return res.status(405).json({ msg: "Method not allowed" });
+  }
 
   try {
-    const createdRecords = await table.create([
-      { fields: { author, title, userId: user.sub } }
-    ]);
-    const createdRecord = {
-      id: createdRecords[0].id,
-      fields: createdRecords[0].fields
-    };
-    res.statusCode = 200;
-    res.json(createdRecord);
+    const createdBook = await createBook(author, title, completed, userId);
+    return res.status(200).json(createdBook);
   } catch (err) {
     console.error(err);
     res.statusCode = 500;
