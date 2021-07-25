@@ -13,7 +13,7 @@ export default function Book({ book }) {
     updateBook(updatedBook);
   };
   return (
-    <li className="bg-white flex items-center shadow-lg rounded-lg my-2 py-2 px-4">
+    <li className="bg-white flex items-center shadow-lg rounded-lg my-4 py-4 px-4">
       <input
         type="checkbox"
         name="completed"

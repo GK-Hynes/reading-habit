@@ -2,8 +2,8 @@ import React from "react";
 
 export default function Navbar({ user, title }) {
   return (
-    <nav className="flex justify-between items-center py-4">
-      <h1 className="text-4xl font-semibold text-gray-800">{title}</h1>
+    <nav className="flex justify-between items-center py-4 max-w-xl lg:max-w-full mx-auto">
+      <h1 className="text-4xl font-semibold text-gray-800 mr-4">{title}</h1>
       <div className="flex">
         {user && (
           <a

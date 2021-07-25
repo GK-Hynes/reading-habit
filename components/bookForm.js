@@ -13,7 +13,7 @@ export default function BookForm() {
   };
   return (
     <form
-      className="form my-8 border border-gray-200 rounded-lg px-4 py-4"
+      className="form my-8 border border-gray-200 rounded-lg px-4 py-4 shadow-lg"
       onSubmit={handleSubmit}
     >
       <h3 className="text-2xl font-semibold mb-2">Add a Book</h3>

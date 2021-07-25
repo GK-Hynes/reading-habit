@@ -15,12 +15,12 @@ export default function MyBooks({ initialBooks, user }) {
   return (
     <div>
       <Head>
-        <title>Build a Reading Habit</title>
+        <title>Your Books | Reading Habit</title>
         <meta name="description" content="Build a reading habit" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar user={user} title="Your Current Reading List" />
-      <main>
+      <main className="max-w-xl mx-auto">
         {user && (
           <>
             <BookForm />
