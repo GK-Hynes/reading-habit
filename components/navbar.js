@@ -1,11 +1,9 @@
 import React from "react";
 
-export default function Navbar({ user }) {
+export default function Navbar({ user, title }) {
   return (
     <nav className="flex justify-between items-center py-4">
-      <p className="text-4xl font-semibold text-gray-800">
-        My Current Reading List
-      </p>
+      <h1 className="text-4xl font-semibold text-gray-800">{title}</h1>
       <div className="flex">
         {user && (
           <a
