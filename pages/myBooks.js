@@ -5,13 +5,14 @@ import Navbar from "../components/navbar";
 import Book from "../components/book";
 import BookForm from "../components/bookForm";
 import { BooksContext } from "../contexts/BooksContext";
-import { getBooks } from "../utils/Fauna";
+import { getBooksByUser } from "../utils/Fauna";
 
 export default function MyBooks({ initialBooks, user }) {
   const { books, setBooks } = useContext(BooksContext);
   useEffect(() => {
     setBooks(initialBooks);
   }, []);
+  console.log(books);
   return (
     <div>
       <Head>
@@ -38,12 +39,11 @@ export default function MyBooks({ initialBooks, user }) {
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(context) {
     const { user } = getSession(context.req);
-
     let books = [];
 
     try {
       if (user) {
-        books = await getBooks();
+        books = await getBooksByUser(user.sub);
       }
       return {
         props: {
