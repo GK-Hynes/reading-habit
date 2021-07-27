@@ -15,19 +15,13 @@ async function getBooks() {
       q.Lambda("ref", q.Get(q.Var("ref")))
     )
   );
-  const books = data.map((book) => {
-    book.id = book.ref.id;
-    delete book.ref;
-    return book;
-  });
+  const books = data.map((book) => convertRefToId(book));
   return books;
 }
 
 async function getBookById(id) {
   const book = await faunaClient.query(q.Get(q.Ref(q.Collection("books"), id)));
-  book.id = book.ref.id;
-  delete book.ref;
-  return book;
+  convertRefToId(book);
 }
 
 async function getBooksByUser(userId) {
@@ -37,11 +31,7 @@ async function getBooksByUser(userId) {
       q.Lambda("ref", q.Get(q.Var("ref")))
     )
   );
-  const books = data.map((book) => {
-    book.id = book.ref.id;
-    delete book.ref;
-    return book;
-  });
+  const books = data.map((book) => convertRefToId(book));
   return books;
 }
 
