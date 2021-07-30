@@ -3,7 +3,7 @@ import { updateBook, getBookById } from "../../utils/Fauna";
 
 export default withApiAuthRequired(async function handler(req, res) {
   const { id } = req.body;
-  const { author, title, completed } = req.body.data;
+  const { author, title, completed, dateCompleted } = req.body.data;
   const session = getSession(req, res);
   const userId = session.user.sub;
 
@@ -19,7 +19,13 @@ export default withApiAuthRequired(async function handler(req, res) {
   }
 
   try {
-    const updatedBook = await updateBook(id, author, title, completed);
+    const updatedBook = await updateBook(
+      id,
+      author,
+      title,
+      completed,
+      dateCompleted
+    );
     return res.status(200).json(updatedBook);
   } catch (err) {
     console.error(err);

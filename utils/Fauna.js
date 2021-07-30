@@ -45,18 +45,18 @@ async function getBooksByUser(userId) {
   return books;
 }
 
-async function createBook(author, title, completed, userId) {
+async function createBook(author, title, completed, dateCompleted, userId) {
   return await faunaClient.query(
     q.Create(q.Collection("books"), {
-      data: { author, title, completed, userId }
+      data: { author, title, completed, dateCompleted, userId }
     })
   );
 }
 
-async function updateBook(id, author, title, completed) {
+async function updateBook(id, author, title, completed, dateCompleted) {
   return await faunaClient.query(
     q.Update(q.Ref(q.Collection("books"), id), {
-      data: { author, title, completed }
+      data: { author, title, completed, dateCompleted }
     })
   );
 }

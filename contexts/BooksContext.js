@@ -15,11 +15,11 @@ const BooksProvider = ({ children }) => {
     }
   };
 
-  const addBook = async (author, title) => {
+  const addBook = async (author, title, completed, dateCompleted) => {
     try {
       const res = await fetch("/api/createBook", {
         method: "POST",
-        body: JSON.stringify({ author, title }),
+        body: JSON.stringify({ author, title, completed, dateCompleted }),
         headers: {
           "Content-Type": "application/json"
         }

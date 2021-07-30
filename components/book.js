@@ -1,8 +1,14 @@
 import React, { useContext } from "react";
 import { BooksContext } from "../contexts/BooksContext";
+import { format } from "date-fns";
 
 export default function Book({ book }) {
   const { updateBook, deleteBook } = useContext(BooksContext);
+
+  let bookDate = "";
+  if (book.data.dateCompleted) {
+    bookDate = format(new Date(book.data.dateCompleted), "dd/MM/yyyy");
+  }
 
   const handleToggleCompleted = () => {
     const updatedData = {
@@ -37,6 +43,7 @@ export default function Book({ book }) {
         >
           {book.data.author}
         </p>
+        {book.data.completed && <p>{`Completed: ${bookDate}`}</p>}
       </div>
       <button
         type="button"

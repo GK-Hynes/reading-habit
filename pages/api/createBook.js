@@ -4,15 +4,20 @@ import { createBook } from "../../utils/Fauna";
 export default withApiAuthRequired(async function handler(req, res) {
   const session = getSession(req, res);
   const userId = session.user.sub;
-  const { author, title } = req.body;
-  const completed = false;
+  const { author, title, completed, dateCompleted } = req.body;
 
   if (req.method !== "POST") {
     return res.status(405).json({ msg: "Method not allowed" });
   }
 
   try {
-    const createdBook = await createBook(author, title, completed, userId);
+    const createdBook = await createBook(
+      author,
+      title,
+      completed,
+      dateCompleted,
+      userId
+    );
     return res.status(200).json(createdBook);
   } catch (err) {
     console.error(err);
