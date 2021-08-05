@@ -1,23 +1,37 @@
 import React, { useState, useContext } from "react";
+import { useRouter } from "next/router";
 import { BooksContext } from "../contexts/BooksContext";
 
-export default function BookForm() {
+export default function BookForm({ book }) {
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
   const [dateCompleted, setDateCompleted] = useState("");
   const [completed, setCompleted] = useState(false);
-  const { addBook } = useContext(BooksContext);
+  const { addBook, updateBook } = useContext(BooksContext);
+
+  const router = useRouter();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    addBook(author, title, completed, dateCompleted);
+
+    if (book) {
+      updateBook({ author, title, completed, dateCompleted, id: book.id });
+    } else {
+      addBook(author, title, completed, dateCompleted);
+    }
+
     setAuthor("");
     setTitle("");
     setCompleted(false);
     setDateCompleted("");
+
+    router.push("/myBooks");
   };
+
   const handleToggleCompleted = () => {
     setCompleted(!completed);
   };
+
   return (
     <form
       className="form my-8 border border-gray-200 rounded-lg px-4 py-4 shadow-lg"
@@ -36,6 +50,7 @@ export default function BookForm() {
           name="author"
           id="author"
           value={author || ""}
+          required
           onChange={(e) => setAuthor(e.target.value)}
           placeholder="Author"
           className="border border-gray-200 p-2 mb-2 rounded-lg appearance-none focus:outline-none focus:border-gray-500"
@@ -51,6 +66,7 @@ export default function BookForm() {
           name="title"
           id="title"
           value={title || ""}
+          required
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Title"
           className="border border-gray-200 p-2 mb-2 rounded-lg appearance-none focus:outline-none focus:border-gray-500"
@@ -94,7 +110,7 @@ export default function BookForm() {
         className="w-full rounded font-semibold bg-black text-white hover:bg-white hover:text-black border hover:border-black py-2 transition duration-300 ease-in-out"
         type="submit"
       >
-        Submit
+        Save
       </button>
     </form>
   );
