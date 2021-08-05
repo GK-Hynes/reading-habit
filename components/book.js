@@ -15,38 +15,42 @@ export default function Book({ book }) {
   }
 
   return (
-    <li className="bg-white flex items-center shadow-lg rounded-lg my-4 py-4 px-4">
-      <div className="flex-1">
+    <li className="bg-white flex flex-col md:flex-row items-center shadow-lg rounded-lg my-4 py-4 px-4">
+      <div className="flex-1 py-4">
         <h3
-          className={`text-lg font-semibold ${
+          className={`text-center md:text-left text-lg font-semibold ${
             book.data.completed ? "line-through" : ""
           }`}
         >
           {book.data.title}
         </h3>
         <p
-          className={`text-gray-800 ${
+          className={`text-center md:text-left text-gray-800 ${
             book.data.completed ? "line-through" : ""
           }`}
         >
           {book.data.author}
         </p>
       </div>
-      {book.data.completed && <p className="mr-4">{`Completed ${bookDate}`}</p>}
-      {user && user.sub == book.data.userId && (
-        <Link href={`/edit/${book.id}`}>
-          <a className="text-sm font-semibold bg-gray-100 text-gray-500 hover:bg-gray-600 hover:text-white py-1 px-2 rounded transition duration-300 ease-in-out mr-2">
-            Edit
-          </a>
-        </Link>
-      )}
-      <button
-        type="button"
-        className="text-sm font-semibold bg-red-100 text-red-500 hover:bg-red-600 hover:text-white py-1 px-2 ml-2 rounded transition duration-300 ease-in-out"
-        onClick={() => deleteBook(book.id)}
-      >
-        Delete
-      </button>
+      <div className="flex-1 flex items-center">
+        {book.data.completed && (
+          <p className="mr-4">{`Completed ${bookDate}`}</p>
+        )}
+        {user && user.sub == book.data.userId && (
+          <Link href={`/edit/${book.id}`}>
+            <a className="ml-auto text-sm font-semibold bg-gray-100 text-gray-500 hover:bg-gray-600 hover:text-white py-1 px-2 rounded transition duration-300 ease-in-out mr-2">
+              Edit
+            </a>
+          </Link>
+        )}
+        <button
+          type="button"
+          className="text-sm font-semibold bg-red-100 text-red-500 hover:bg-red-600 hover:text-white py-1 px-2 ml-2 rounded transition duration-300 ease-in-out"
+          onClick={() => deleteBook(book.id)}
+        >
+          Delete
+        </button>
+      </div>
     </li>
   );
 }
