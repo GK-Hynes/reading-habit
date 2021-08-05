@@ -11,7 +11,7 @@ export default function BookForm({ book }) {
   const { addBook, updateBook } = useContext(BooksContext);
 
   const router = useRouter();
-  const user = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
     if (book) {

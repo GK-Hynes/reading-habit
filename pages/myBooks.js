@@ -4,6 +4,7 @@ import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import Navbar from "../components/navbar";
 import Book from "../components/book";
 import BookForm from "../components/bookForm";
+import BookList from "../components/bookList";
 import { BooksContext } from "../contexts/BooksContext";
 import { getBooksByUser } from "../utils/Fauna";
 
@@ -25,9 +26,7 @@ export default function MyBooks({ initialBooks, user }) {
         {user && (
           <>
             <BookForm />
-            <ul>
-              {books && books.map((book) => <Book key={book.id} book={book} />)}
-            </ul>
+            <BookList books={books} />
           </>
         )}
         {!user && <p>Log in to save your reading list</p>}

@@ -5,7 +5,7 @@ import { BooksContext } from "../contexts/BooksContext";
 import { format } from "date-fns";
 
 export default function Book({ book }) {
-  const { updateBook, deleteBook } = useContext(BooksContext);
+  const { deleteBook } = useContext(BooksContext);
 
   const { user } = useUser();
 
@@ -31,8 +31,8 @@ export default function Book({ book }) {
         >
           {book.data.author}
         </p>
-        {book.data.completed && <p>{`Completed: ${bookDate}`}</p>}
       </div>
+      {book.data.completed && <p className="mr-4">{`Completed ${bookDate}`}</p>}
       {user && user.sub == book.data.userId && (
         <Link href={`/edit/${book.id}`}>
           <a className="text-sm font-semibold bg-gray-100 text-gray-500 hover:bg-gray-600 hover:text-white py-1 px-2 rounded transition duration-300 ease-in-out mr-2">
