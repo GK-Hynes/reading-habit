@@ -14,24 +14,8 @@ export default function Book({ book }) {
     bookDate = format(new Date(book.data.dateCompleted), "dd/MM/yyyy");
   }
 
-  const handleToggleCompleted = () => {
-    const updatedData = {
-      ...book.data,
-      completed: !book.data.completed
-    };
-    const updatedBook = { id: book.id, data: updatedData };
-    updateBook(updatedBook);
-  };
   return (
     <li className="bg-white flex items-center shadow-lg rounded-lg my-4 py-4 px-4">
-      <input
-        type="checkbox"
-        name="completed"
-        id="completed"
-        checked={book.data.completed}
-        className="mr-4 h-4 w-4 rounded border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-black"
-        onChange={handleToggleCompleted}
-      />
       <div className="flex-1">
         <h3
           className={`text-lg font-semibold ${
@@ -51,7 +35,9 @@ export default function Book({ book }) {
       </div>
       {user && user.sub == book.data.userId && (
         <Link href={`/edit/${book.id}`}>
-          <a className="text-gray-800 mr-2">Edit</a>
+          <a className="text-sm font-semibold bg-gray-100 text-gray-500 hover:bg-gray-600 hover:text-white py-1 px-2 rounded transition duration-300 ease-in-out mr-2">
+            Edit
+          </a>
         </Link>
       )}
       <button

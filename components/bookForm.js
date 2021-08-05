@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useUser } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
 import { BooksContext } from "../contexts/BooksContext";
 
@@ -10,6 +11,7 @@ export default function BookForm({ book }) {
   const { addBook, updateBook } = useContext(BooksContext);
 
   const router = useRouter();
+  const user = useUser();
 
   useEffect(() => {
     if (book) {
@@ -31,7 +33,7 @@ export default function BookForm({ book }) {
         dateCompleted
       };
       const updatedBook = { ...book };
-      updatedBook.data = { ...newData };
+      updatedBook.data = { ...newData, userId: user.sub };
       updateBook(updatedBook);
     } else {
       addBook(author, title, completed, dateCompleted);
@@ -101,7 +103,7 @@ export default function BookForm({ book }) {
             className="text-lg font-semibold text-gray-800"
             htmlFor="completed"
           >
-            Already Completed?
+            Completed?
           </label>
         </div>
         {completed && (
