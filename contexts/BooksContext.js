@@ -25,6 +25,8 @@ const BooksProvider = ({ children }) => {
         }
       });
       const newBook = await res.json();
+      // Convert the new book's ref to an id
+      newBook.id = newBook.ref["@ref"].id;
       setBooks((prevBooks) => {
         return [newBook, ...prevBooks];
       });
