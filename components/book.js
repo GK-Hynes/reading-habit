@@ -1,9 +1,13 @@
 import React, { useContext } from "react";
+import Link from "next/link";
+import { useUser } from "@auth0/nextjs-auth0";
 import { BooksContext } from "../contexts/BooksContext";
 import { format } from "date-fns";
 
 export default function Book({ book }) {
   const { updateBook, deleteBook } = useContext(BooksContext);
+
+  const { user } = useUser();
 
   let bookDate = "";
   if (book.data.dateCompleted) {
@@ -45,6 +49,11 @@ export default function Book({ book }) {
         </p>
         {book.data.completed && <p>{`Completed: ${bookDate}`}</p>}
       </div>
+      {user && user.sub == book.data.userId && (
+        <Link href={`/edit/${book.id}`}>
+          <a className="text-gray-800 mr-2">Edit</a>
+        </Link>
+      )}
       <button
         type="button"
         className="text-sm font-semibold bg-red-100 text-red-500 hover:bg-red-600 hover:text-white py-1 px-2 ml-2 rounded transition duration-300 ease-in-out"

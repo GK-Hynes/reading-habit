@@ -12,7 +12,7 @@ export default function MyBooks({ initialBooks, user }) {
   useEffect(() => {
     setBooks(initialBooks);
   }, []);
-  // console.log(books);
+
   return (
     <div>
       <Head>

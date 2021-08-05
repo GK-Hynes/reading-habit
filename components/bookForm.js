@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { BooksContext } from "../contexts/BooksContext";
 
@@ -11,11 +11,28 @@ export default function BookForm({ book }) {
 
   const router = useRouter();
 
+  useEffect(() => {
+    if (book) {
+      setAuthor(book.data.author);
+      setTitle(book.data.title);
+      setCompleted(book.data.completed);
+      setDateCompleted(book.data.dateCompleted);
+    }
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (book) {
-      updateBook({ author, title, completed, dateCompleted, id: book.id });
+      const newData = {
+        author,
+        title,
+        completed,
+        dateCompleted
+      };
+      const updatedBook = { ...book };
+      updatedBook.data = { ...newData };
+      updateBook(updatedBook);
     } else {
       addBook(author, title, completed, dateCompleted);
     }
