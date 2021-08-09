@@ -50,7 +50,7 @@ export default function Home() {
               Log in to view and update your reading list
             </p>
             <a
-              href="/api/auth/login"
+              href="/myBooks"
               className="block text-center rounded font-semibold bg-black text-white hover:bg-white hover:text-black border hover:border-black py-2 px-4 transition duration-300 ease-in-out"
             >
               Login
@@ -58,7 +58,7 @@ export default function Home() {
           </div>
         )}
         <section className="py-16 w-full flex justify-evenly gap-8 flex-col lg:flex-row">
-          <div className="bg-gray-100 p-4 mb-16 mx-auto max-w-md flex-1 rounded">
+          <div className="bg-gray-100 p-4 mb-16 mx-auto w-full max-w-md flex-1 rounded">
             <div className="flex justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -79,14 +79,13 @@ export default function Home() {
               All your books in one place
             </h3>
             <p className="text-center mb-4 px-2">
-              Want to keep track of your to-read pile?
+              Keep track of your to-read pile
             </p>
             <p className="text-center mb-4 px-2">
-              Have lists in different notebooks and you'd like them to be
-              together?
+              Don't rely on battered notebooks
             </p>
           </div>
-          <div className="bg-gray-100 p-4 mb-16 mx-auto max-w-md flex-1 rounded">
+          <div className="bg-gray-100 p-4 mb-16 mx-auto w-full max-w-md flex-1 rounded">
             <div className="flex justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -107,13 +106,14 @@ export default function Home() {
               Saved to the cloud
             </h3>
             <p className="text-center mb-4 px-2">
-              What happens if you lose your notebook, or don't have it with you?
+              What happens if you lose your reading list, or don't have it with
+              you?
             </p>
             <p className="text-center mb-4 px-2">
               Never lose track of another book again.
             </p>
           </div>
-          <div className="bg-gray-100 p-4 mb-16 mx-auto max-w-md flex-1 rounded">
+          <div className="bg-gray-100 p-4 mb-16 mx-auto w-full max-w-md flex-1 rounded">
             <div className="flex justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
