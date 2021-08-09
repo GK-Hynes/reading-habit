@@ -2,7 +2,7 @@ import { useEffect, useContext } from "react";
 import Head from "next/head";
 import { withPageAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import Navbar from "../components/navbar";
-import Book from "../components/book";
+
 import BookForm from "../components/bookForm";
 import BookList from "../components/bookList";
 import { BooksContext } from "../contexts/BooksContext";

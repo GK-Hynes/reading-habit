@@ -1,16 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
-import { useRouter } from "next/router";
 import { BooksContext } from "../contexts/BooksContext";
 
-export default function BookForm({ book }) {
+export default function BookForm({ book, handleSave }) {
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
   const [dateCompleted, setDateCompleted] = useState("");
   const [completed, setCompleted] = useState(false);
   const { addBook, updateBook } = useContext(BooksContext);
 
-  const router = useRouter();
   const { user } = useUser();
 
   useEffect(() => {
@@ -35,6 +33,7 @@ export default function BookForm({ book }) {
       const updatedBook = { ...book };
       updatedBook.data = { ...newData, userId: user.sub };
       updateBook(updatedBook);
+      handleSave();
     } else {
       addBook(author, title, completed, dateCompleted);
     }
@@ -43,8 +42,6 @@ export default function BookForm({ book }) {
     setTitle("");
     setCompleted(false);
     setDateCompleted("");
-
-    router.push("/myBooks");
   };
 
   const handleToggleCompleted = () => {
@@ -56,7 +53,9 @@ export default function BookForm({ book }) {
       className="form my-8 border border-gray-200 rounded-lg px-4 py-4 shadow-lg"
       onSubmit={handleSubmit}
     >
-      <h3 className="text-2xl font-semibold mb-2">Add a Book</h3>
+      <h3 className="text-2xl font-semibold mb-2">
+        {book ? "Edit Book" : "Add a Book"}
+      </h3>
       <div className="flex flex-col text-sm mb-2">
         <label
           className="text-lg font-semibold mb-2 text-gray-800"
